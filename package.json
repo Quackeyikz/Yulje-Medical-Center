@@ -1,0 +1,24 @@
+{
+  "name": "yulje-medical-center",
+  "version": "1.0.0",
+  "description": "Sebuah CRUD WebApp untuk konsultasi dokter dengan pasien (MySQL and Express Based)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "Praktikum-Pemrograman-Web"
+  },
+  "keywords": [
+    "CRUD",
+    "WebApps",
+    "ExpressJS"
+  ],
+  "author": "Quackeyikz",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^5.1.0",
+    "mysql2": "^3.14.1"
+  }
+}
