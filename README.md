@@ -25,9 +25,10 @@ Projek aplikasi ini bertujuan untuk mengaplikasikan *study case* jadwal konsulta
 
 **Routes / Endpoints**
 - http://localhost:3000/
-- http://localhost:3000/jadwal
-- http://localhost:3000/proses
 - http://localhost:3000/pengajuan
+- http://localhost:3000/proses
+- http://localhost:3000/jadwal
+- http://localhost:3000/jadwal/dokter
 
 ## Database Tables
 - **Jadwal_Konsultasi**

@@ -15,7 +15,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/pengajuan', (req, res) => {
-    res.end();
+    res.sendFile(path.join(__dirname, "public", "pengajuan.html"));
 });
 
 app.post('/proses', (req, res) => {

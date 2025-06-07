@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pendaftaran Jadwal Konsultasi</title>
+
+  <!-- Tailwind -->
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+  <!-- Inter FONT Google APIs -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+    rel="stylesheet">
+
+  <!-- Favicon -->
+  <link rel="icon" href="img/Yulje Icon Logo.png">
+
+  <style>
+    * {
+      transition: 0.3s;
+      --color-yuldark: #06152C;
+      font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    .text-yuldark-500 {
+      color: var(--color-yuldark);
+    }
+
+    .bg-yuldark-500 {
+      background-color: var(--color-yuldark);
+    }
+  </style>
+</head>
+
+<body class="bg-gray-100">
+  <div class="max-w-3xl mx-auto mt-10 bg-white shadow-lg rounded-2xl overflow-hidden">
+    <div class="bg-cyan-400 text-white text-center py-5 text-xl font-bold">Pendaftaran Jadwal Konsultasi</div>
+    <div class="p-6">
+      <form method="post" action="proses.php" class="space-y-6">
+        <!-- Data Pasien -->
+        <div>
+          <h2 class="text-lg font-semibold mb-4">Data Pasien</h2>
+
+          <div class="mb-4">
+            <label for="nama" class="block mb-1">Nama Lengkap</label>
+            <input type="text" id="nama" name="nama_lengkap" class="w-full border rounded-md px-3 py-2"
+              placeholder="Masukkan nama lengkap" required>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+            <div>
+              <label for="tgl_lahir" class="block mb-1">Tanggal Lahir</label>
+              <input type="date" id="tgl_lahir" name="tanggal_lahir" class="w-full border rounded-md px-3 py-2"
+                required>
+            </div>
+            <div>
+              <label for="jk" class="block mb-1">Jenis Kelamin</label>
+              <select id="jk" name="jenis_kelamin" class="w-full border rounded-md px-3 py-2" required>
+                <option value="" disabled selected>Pilih jenis kelamin</option>
+                <option value="Pria">Pria</option>
+                <option value="Wanita">Wanita</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="mb-4">
+            <label for="kontak" class="block mb-1">Kontak (Nomor Telepon Aktif)</label>
+            <input type="tel" id="kontak" name="kontak" class="w-full border rounded-md px-3 py-2"
+              placeholder="+62xxxxxxxxxxx" required>
+          </div>
+
+          <div class="mb-4">
+            <label for="alamat" class="block mb-1">Alamat</label>
+            <textarea id="alamat" name="alamat" rows="3" class="w-full border rounded-md px-3 py-2"
+              placeholder="Masukkan alamat lengkap" required></textarea>
+          </div>
+        </div>
+
+        <!-- Jadwal Konsultasi -->
+        <div>
+          <h2 class="text-lg font-semibold mb-4">Jadwal Konsultasi</h2>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+            <div>
+              <label for="tgl_konsultasi" class="block mb-1">Tanggal Konsultasi</label>
+              <input type="date" id="tgl_konsultasi" name="tanggal_konsultasi"
+                class="w-full border rounded-md px-3 py-2" required>
+            </div>
+            <div>
+              <label for="jam_konsultasi" class="block mb-1">Jam Konsultasi</label>
+              <input type="time" id="jam_konsultasi" name="jam_konsultasi" class="w-full border rounded-md px-3 py-2"
+                required>
+            </div>
+          </div>
+
+          <div class="mb-4">
+            <label for="poli" class="block mb-1">Poli</label>
+            <select id="poli" name="poli" class="w-full border rounded-md px-3 py-2" required>
+              <option value="" disabled selected>Pilih Poli</option>
+              <option value="Umum">Umum</option>
+              <option value="Gigi">Gigi</option>
+              <option value="Anak">Anak</option>
+              <option value="Kulit">Kulit</option>
+              <option value="THT">THT</option>
+              <option value="Gizi">Gizi</option>
+              <option value="Saraf">Saraf</option>
+              <option value="Psikiater">Psikiater</option>
+              <option value="Kandungan">Kandungan</option>
+              <option value="Mata">Mata</option>
+              <option value="Jantung">Jantung</option>
+              <option value="Bedah">Bedah</option>
+              <option value="Paru">Paru</option>
+            </select>
+          </div>
+
+          <div class="mb-4">
+            <label for="keluhan" class="block mb-1">Keluhan</label>
+            <textarea id="keluhan" name="keluhan" rows="3" class="w-full border rounded-md px-3 py-2"
+              placeholder="Tulis keluhan Anda" required></textarea>
+          </div>
+        </div>
+
+        <!-- Buttons -->
+        <div class="flex justify-end gap-3">
+          <button type="reset"
+            class="px-5 py-2 border rounded-md text-gray-700 bg-gray-100 hover:bg-gray-200">Reset</button>
+          <button type="submit" class="px-5 py-2 bg-cyan-400 text-white rounded-md hover:bg-cyan-500">Lanjut</button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</body>
+</html>
