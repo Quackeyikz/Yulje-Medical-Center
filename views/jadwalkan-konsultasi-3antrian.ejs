@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pendaftaran Jadwal Konsultasi</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+  </style>
+</head>
+<body class="bg-gray-100">
+
+  <div class="max-w-3xl mx-auto mt-10 mb-10 bg-white shadow-lg rounded-2xl overflow-hidden">
+    <div class="bg-cyan-400 text-white text-center py-5 text-xl font-bold">
+      Nomor Antrian
+    </div>
+    <div class="p-6">
+
+        <section class="mb-5">
+        <h2 class="text-xl font-semibold">No. Antrian</h2>
+        <h1 class="text-9xl font-bold mb-3"><%= data.no_antrian %></h1>
+        <div class="text-sm text-blue-500">
+          <li>Simpan halaman ini dan tunjukkan kepada resepsionis.</li>
+          <li>Pastikan dokumen pasien lengkap (Kartu Berobat, BPJS jika memiliki)</li>
+        </div>
+      </section>
+
+      <section class="mb-5">
+        <h2 class="text-xl font-semibold mb-3">Jadwal Konsultasi</h2>
+        <div class="space-y-2 text-sm">
+          <p><strong>Nama Dokter:</strong><br><%= data.dokter %></p>
+          <p><strong>Poli:</strong><br><%= data.poli %></p>
+          <div class="flex flex-wrap gap-6 mb-4">
+            <div>
+              <p><strong>Tanggal Konsultasi:</strong><br><%= data.tgl_konsultasi %></p>
+            </div>
+            <div>
+              <p><strong>Jam Konsultasi:</strong><br><%= data.jam_konsultasi %></p>
+            </div>
+
+          </div>          
+          <p><strong>Keluhan:</strong><br><%= data.keluhan %></p>
+          <p><strong>Nominal:</strong><br>Rp <%= data.nominal %></p>
+        </div>
+      </section>
+      
+        <!-- Buttons -->
+        <div class="flex justify-end gap-3">
+        <a class="px-5 py-2 bg-white rounded-full border-2 hover:bg-gray-200" href="/public/index.html">Kembali ke Beranda</a>
+        <button class="px-5 py-2 bg-cyan-400 text-white rounded-full hover:bg-cyan-500" onclick="window.print()">Simpan Antrian</button>
+        </div>
+    </div>
+  </div>
+
+</body>
+</html>

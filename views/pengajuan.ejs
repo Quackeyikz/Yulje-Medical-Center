@@ -41,10 +41,13 @@
 <body class="bg-gray-100">
   <%- include("modules/navbar.ejs") %>
 
-  <div class="max-w-3xl mx-auto mt-10 bg-white shadow-lg rounded-2xl overflow-hidden">
-    <div class="bg-cyan-400 text-white text-center py-5 text-xl font-bold">Pendaftaran Jadwal Konsultasi</div>
+  <div class="max-w-3xl mx-auto mt-10 mb-10 bg-white shadow-lg rounded-2xl overflow-hidden">
+    <div class="bg-cyan-400 text-white text-center py-5 text-xl font-bold">
+      Pendaftaran Jadwal Konsultasi
+    </div>
     <div class="p-6">
-      <form method="post" action="proses.php" class="space-y-6">
+      <form method="post" action="/views/jadwalkan-konsultasi-1.ejs" class="space-y-6">
+
         <!-- Data Pasien -->
         <div>
           <h2 class="text-lg font-semibold mb-4">Data Pasien</h2>
@@ -130,9 +133,8 @@
 
         <!-- Buttons -->
         <div class="flex justify-end gap-3">
-          <button type="reset"
-            class="px-5 py-2 border rounded-md text-gray-700 bg-gray-100 hover:bg-gray-200">Reset</button>
-          <button type="submit" class="px-5 py-2 bg-cyan-400 text-white rounded-md hover:bg-cyan-500">Lanjut</button>
+          <button type="reset" class="px-5 py-2 border rounded-full text-gray-700 bg-gray-100 hover:bg-gray-200">Reset</button>
+          <button type="submit" class="px-5 py-2 bg-cyan-400 text-white rounded-full hover:bg-cyan-500">Lanjut</button>
         </div>
 
       </form>
