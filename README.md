@@ -1,6 +1,8 @@
 # "YULJE Medical Center" - CRUD Jadwal Konsultasi Dokter dan Pasien
-_Web App - Tugas Akhir Pemrograman Web_  
+_**Web App - Tugas Akhir Pemrograman Web**_  
 _Disclaimer: Nama dan inspirasi hanya berupa objek fiktif belaka_  
+
+![Yulje - Medical Center](public/schemas/mockup_Landing.png)
 
 **Deskripsi**
 Projek aplikasi ini bertujuan untuk mengaplikasikan *study case* jadwal konsultasi antara dokter dengan pasien. Program menyajikan informasi mengenai penjadwalan yang telah dipesan oleh pasien dan status dari jadwal tersebut, mulai dari tanggal, deskripsi, status, dan lain-lain.
@@ -10,10 +12,13 @@ Projek aplikasi ini bertujuan untuk mengaplikasikan *study case* jadwal konsulta
 - Jika berhasil, mengarah ke pembayaran/transaksi.
 - Jika gagal, kembali ke halaman input konsultasi.
 
+![Form Konsultasi](public/schemas/mockup_FormKonsul.png)
+
 ## Teknologi
-- TailwindCSS
 - HTML5
 - CSS3
+- TailwindCSS
+- Bootstrap 5 Icons
 - NodeJS
 - ExpressJS
 - EJS (Embedded JavaScript)
@@ -34,13 +39,16 @@ Projek aplikasi ini bertujuan untuk mengaplikasikan *study case* jadwal konsulta
 - http://localhost:3000/admin/jadwal/:id
 
 ## Database Tables
+
+![ERD](public/schemas/Entity%20Relationship%20Diagram%20(ERD).png)
+
 - **Jadwal_Konsultasi**
-  - *id_konsultasi* INT/SERIAL AUTO_INCREMENT(P)
+  - *id_konsultasi* INT AUTO_INCREMENT(P)
   - *id_pasien* VARCHAR(50) (F)
   - *id_dokter* VARCHAR(50) (F)
   - *tanggal* DATE
   - *waktu* TIME
-  - *keluhan* TEXT/VARCHAR(255)
+  - *keluhan* VARCHAR(255)
   - *status* VARCHAR(30)
   
 - **Riwayat_Konsultasi**
@@ -49,26 +57,31 @@ Projek aplikasi ini bertujuan untuk mengaplikasikan *study case* jadwal konsulta
   - *id_dokter* VARCHAR(50) (F)
   - *tanggal* DATE
   - *waktu* TIME
-  - *keluhan* TEXT/VARCHAR(255)
+  - *keluhan* VARCHAR(255)
   - *status* VARCHAR(30)
   - *diagnosis* VARCHAR(255)
   - *tindakan* VARCHAR(255)
   
 - **Dokter**
-  - *id_dokter* INT/SERIAL AUTO_INCREMENT(P)
+  - *id_dokter* INT AUTO_INCREMENT(P)
   - *nama_dokter* VARCHAR(50)
   - *spesialis* VARCHAR(50)
   - *kontak* VARCHAR(30)
   - *id_praktik* VARCHAR(100) (F)
   
 - **Jadwal_Praktik**
-  - *id_praktik* INT/SERIAL AUTO_INCREMENT(P)
+  - *id_praktik* INT AUTO_INCREMENT(P)
   - *hari* VARCHAR(10)
   - *waktu_mulai* TIME
   - *waktu_selesai* TIME
   
+- **Spesialis**
+  - *id_spesialis* INT AUTO_INCREMENT(P)
+  - *nama_spesialis* VARCHAR(30)
+  - *biaya* INT
+  
 - **Pasien**
-  - *id_pasien* INT/SERIAL AUTO_INCREMENT(P)
+  - *id_pasien* INT AUTO_INCREMENT(P)
   - *nama_pasien* VARCHAR(50)
   - *jenis_kelamin* VARCHAR(10)
   - *tanggal_lahir* DATE
@@ -76,9 +89,9 @@ Projek aplikasi ini bertujuan untuk mengaplikasikan *study case* jadwal konsulta
   - *alamat* VARCHAR(255)
   
 - **Transaksi**
-  - *id_transaksi* INT/SERIAL AUTO_INCREMENT(P)
-  - *id_konsultasi* INT/SERIAL (F)
-  - *nominal* NUMERIC/INT/DECIMAL
+  - *id_transaksi* INT AUTO_INCREMENT(P)
+  - *id_konsultasi* INT (F)
+  - *nominal* INT
   - *metode_bayar* VARCHAR(30)
   - *tanggal_transaksi* DATE
   - *waktu_transaksi* TIME
@@ -92,13 +105,17 @@ yulje-app/
 │  ├─ css/  
 │  ├─ img/  
 │  ├─ schemas/  
-│  ├─ index.html  
-│  ├─ pengajuan.html  
 ├─ views/  
+│  ├─ modules/  
+│  │  ├─ navbar.ejs  
+│  │  ├─ footer.ejs  
+│  ├─ index.ejs  
+│  ├─ pengajuan.ejs  
 │  ├─ jadwal.ejs  
 │  ├─ proses.ejs  
 │  ├─ jadwal-dokter.ejs  
 │  ├─ admin.ejs  
+├─ .gitignore  
 ├─ db.js  
 ├─ index.js  
 ├─ package-lock.json  

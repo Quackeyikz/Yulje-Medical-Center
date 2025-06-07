@@ -8,26 +8,25 @@ const port = 3000;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static('public'));
+app.use(express.static('public'));  // Untuk pemanggilan asset tanpa root folder
+app.set("view engine", "ejs");
 
 /*
     Note:
-    Yang tidak memiliki label 'Static', menggunakan file ejs karena konten dinamis.
-
-    Static menggunakan fungsi res.sendFile(), 
-    Dinamis menggunakan res.render();
+    Menggunakan file ejs karena konten dinamis dan telah support modularity.
+    Dinamis menggunakan res.render() dengan source direktori 'views/'
     
         - Erik
 */
 
-// Landing Page (Static)
+// Landing Page
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, "public", "index.html"));
+    res.render("index.ejs");
 });
 
-// Form Pengajuan Konsultasi (Static) -> /proses
+// Form Pengajuan Konsultasi -> /proses
 app.get('/pengajuan', (req, res) => {
-    res.sendFile(path.join(__dirname, "public", "pengajuan.html"));
+    res.render("pengajuan.ejs");
 });
 
 // Proses Pengajuan -> /proses/transaksi
