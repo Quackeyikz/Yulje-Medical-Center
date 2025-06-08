@@ -5,31 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jadwal</title>
 
-    <!-- Tailwind -->
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-
-    <!-- Inter FONT Google APIs -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
-
-    <!-- Favicon -->
-    <link rel="icon" href="img/Yulje Icon Logo.png">
-
-    <style>
-        * { 
-            transition: 0.3s;
-            --color-yuldark: #06152C;
-            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        a { text-decoration: none; }
-
-        .text-yuldark-500 { color: var(--color-yuldark); }
-        .bg-yuldark-500 { background-color: var(--color-yuldark); }
-    </style>
+    <%- include('modules/head.ejs') %>
 </head>
 <body>
+    <%- include('modules/navbar.ejs') %>
     
+    <main class="max-w-3xl mx-auto mt-10 mb-10 bg-white shadow-lg rounded-2xl overflow-hidden">
+        <div class="bg-cyan-400 text-white text-center py-5 text-xl font-bold">Cari Jadwal Konsultasi</div>
+
+        <form action="/jadwal/antrian" method="POST" class="p-6 flex flex-col gap-5 justify-between items-start">
+            <div class="grow mx-auto">
+                <label for="nama" class="block text-sm/6 font-medium text-gray-900">Nama</label>
+                <input type="text" name="nama" id="nama" class="mt-2 block min-w-100 grow py-1.5 pr-3 pl-1 text-base text-gray-900 placeholder:text-gray-400 sm:text-sm/6 rounded-md bg-white pl-3 outline-1 -outline-offset-1 outline-gray-300 [input:focus-within]:outline-2 [input:focus-within]:outline-blue-600" placeholder="Masukkan Nama Lengkap">
+            </div>
+            <div class="grow mx-auto">
+                <label for="tgl_lahir" class="block text-sm/6 font-medium text-gray-900">Tanggal Lahir</label>
+                <input type="date" name="tgl_lahir" id="tgl_lahir" class="mt-2 block min-w-100 grow py-1.5 pr-3 pl-1 text-base text-gray-900 placeholder:text-gray-400 sm:text-sm/6 rounded-md bg-white pl-3 outline-1 -outline-offset-1 outline-gray-300 [input:focus-within]:outline-2 [input:focus-within]:outline-blue-600" placeholder="2000-10-31">
+            </div>
+            <div class="mt-5 self-end">
+                <button type="submit" class="p-4 px-6 font-bold text-white bg-blue-500 hover:bg-blue-600 hover:cursor-pointer rounded-md">Lihat Antrian</button>
+            </div>
+        </form>
+    </main>
+
+    <%- include('modules/footer.ejs') %>
 </body>
 </html>

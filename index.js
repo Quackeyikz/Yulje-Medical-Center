@@ -122,7 +122,27 @@ app.post('/proses/antrian', (req, res) => {
 
 // Jadwal - yang tersedia bagi user
 app.get('/jadwal', (req, res) => {
-    res.end();
+    res.render("jadwal.ejs");
+});
+
+app.post('/jadwal/antrian', (req, res) => {
+    const formData = req.body;
+    const nama = formData.nama;
+
+    const sql = `SELECT * FROM jadwal_konsultasi k JOIN pasien p ON k.id_pasien=p.id_pasien JOIN dokter d ON d.id_dokter=k.id_dokter JOIN spesialis s ON d.id_spesialis=s.id_spesialis JOIN transaksi t ON k.id_konsultasi=t.id_konsultasi WHERE LOWER(p.nama_pasien) LIKE ? AND p.tanggal_lahir = ?`;
+    const sql_values = [ `%${nama.toLowerCase()}%`, formData.tgl_lahir ];
+
+    db.query(sql, sql_values, (err, results) => {
+        if (err) throw err;
+
+        console.log(results);
+
+        if (!results || results.length === 0) {
+            return res.status(404).send('Data tidak ditemukan.');
+        }
+
+        res.render('jadwal-antrian.ejs', { data: results[0] });
+    });
 });
 
 // List Jadwal Dokter
