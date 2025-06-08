@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Pendaftaran Jadwal Konsultasi</title>
+
+	<%- include("modules/head.ejs") %>
+</head>
+<body class="bg-gray-100">
+	<%- include("modules/navbar.ejs") %>
+
+	<div class="max-w-3xl mx-auto mt-10 mb-10 bg-white shadow-lg rounded-2xl overflow-hidden">
+		<div class="bg-cyan-400 text-white text-center py-5 text-xl font-bold">Pendaftaran Jadwal Konsultasi</div>
+		<div class="p-6">
+			<form method="post" action="/proses/transaksi" class="space-y-6">
+				<!-- Hidden input untuk passing data -->
+
+				<!-- Pasien -->
+				<input type="hidden" name="nama" value="<%= data.nama %>">
+				<input type="hidden" name="jk" value="<%= data.jk %>">
+				<input type="hidden" name="tanggal_lahir" value="<%= data.tanggal_lahir %>">
+				<input type="hidden" name="kontak" value="<%= data.kontak %>">
+				<input type="hidden" name="alamat" value="<%= data.alamat %>">
+				<!-- Jadwal Konsultasi -->
+				<input type="hidden" name="tgl_konsultasi" value="<%= data.tgl_konsultasi %>">
+				<input type="hidden" name="jam_konsultasi" value="<%= data.jam_konsultasi %>">
+				<input type="hidden" name="keluhan" value="<%= data.keluhan %>">
+				
+				<input type="hidden" name="biaya" value="<%= biaya %>">
+				
+				<input type="hidden" name="poli" value="<%= data.poli %>">
+				<input type="hidden" name="id_dokter" value="<%= id_dokter %>">
+				<input type="hidden" name="nama_dokter" value="<%= nama_dokter %>">
+				
+
+				<section>
+					<h2 class="text-lg font-semibold mb-3">Data Pasien</h2>
+					<div class="space-y-2 text-sm">
+						<p><strong>Nama Lengkap:</strong><br>
+							<%= data.nama %>
+						</p>
+						<p><strong>Tanggal Lahir:</strong><br>
+							<%= data.tanggal_lahir %>
+						</p>
+						<p><strong>Jenis Kelamin:</strong><br>
+							<%= data.jk %>
+						</p>
+						<p><strong>Kontak:</strong><br>
+							<%= data.kontak %>
+						</p>
+						<p><strong>Alamat:</strong><br>
+							<%= data.alamat %>
+						</p>
+					</div>
+				</section>
+
+				<section>
+					<h2 class="text-lg font-semibold mb-3">Jadwal Konsultasi</h2>
+					<div class="space-y-2 text-sm">
+						<p><strong>Nama Dokter:</strong><br>
+							<%= nama_dokter %>
+						</p>
+						<p><strong>Poli:</strong><br>
+							<%= data.poli %>
+						</p>
+						<!-- Tanggal dan jam disesuaikan dengan database -->
+						<div class="flex flex-wrap gap-6 mb-4">
+							<div>
+								<p><strong>Tanggal Konsultasi:</strong><br>
+									<%= new Date(data.tgl_konsultasi).toLocaleDateString('id-ID', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'}) %>
+								</p>
+							</div>
+							<div>
+								<p><strong>Jam Konsultasi:</strong><br>
+									<%= data.jam_konsultasi %>
+								</p>
+							</div>
+
+						</div>
+						<p><strong>Keluhan:</strong><br>
+							<%= data.keluhan %>
+						</p>
+
+						<!-- Biaya sesuai poli/spesialis, database -->
+						<p><strong>Nominal:</strong><br>
+							Rp<%= biaya %>
+						</p>
+					</div>
+				</section>
+				
+				<!-- Buttons -->
+				<div class="flex justify-end gap-3">
+					<button type="submit" class="px-5 py-2 bg-cyan-400 text-white rounded-full hover:bg-cyan-500">Konfirmasi</button>
+				</div>
+			</form>
+		</div>
+	</div>
+
+	<%- include("modules/footer.ejs") %>
+</body>
+</html>
