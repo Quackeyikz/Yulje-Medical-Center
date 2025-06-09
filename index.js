@@ -147,7 +147,12 @@ app.post('/jadwal/antrian', (req, res) => {
 
 // List Jadwal Dokter
 app.get('/jadwal/dokter', (req, res) => {
-    res.end();
+    const sql_dokter = `SELECT * FROM dokter d JOIN spesialis s ON d.id_spesialis=s.id_spesialis JOIN jadwal_praktik p ON d.id_praktik = p.id_praktik`;
+
+    db.query(sql_dokter, (err, results) => {
+        if(err) throw err;
+        res.render("jadwal-dokter.ejs", { results });
+    });
 });
 
 // Tabel list jadwal dengan CRUD dashboard
