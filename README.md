@@ -33,10 +33,15 @@ Projek aplikasi ini bertujuan untuk mengaplikasikan *study case* jadwal konsulta
 - http://localhost:3000/
 - http://localhost:3000/pengajuan
 - http://localhost:3000/proses
+- http://localhost:3000/proses/transaksi
+- http://localhost:3000/proses/antrian
 - http://localhost:3000/jadwal
+- http://localhost:3000/jadwal/antrian
 - http://localhost:3000/jadwal/dokter
 - http://localhost:3000/admin/
 - http://localhost:3000/admin/jadwal/:id
+- http://localhost:3000/admin/jadwal/:id/delete
+- http://localhost:3000/admin/jadwal/:id/done
 
 ## Database Tables
 

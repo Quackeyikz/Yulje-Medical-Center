@@ -5,31 +5,112 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin</title>
 
-    <!-- Tailwind -->
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-
-    <!-- Inter FONT Google APIs -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
-
-    <!-- Favicon -->
-    <link rel="icon" href="img/Yulje Icon Logo.png">
+    <%- include("modules/head.ejs") %>
 
     <style>
-        * { 
-            transition: 0.3s;
-            --color-yuldark: #06152C;
-            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        tr th {
+            padding: 10px 30px;
         }
 
-        a { text-decoration: none; }
-
-        .text-yuldark-500 { color: var(--color-yuldark); }
-        .bg-yuldark-500 { background-color: var(--color-yuldark); }
+        tr td {
+            padding: 10px;
+        }
     </style>
 </head>
 <body>
-    
+    <nav class="flex flex-row justify-between items-center">
+        <div class="flex flex-row gap-5 justify-start items-center p-3">
+            <img src="/img/Yulje Icon Logo.png" class="w-15" alt="Yulje Logo">
+            <div class="flex flex-col">
+                <h1 class="text-2xl text-yuldark-500 font-bold">YULJE's Admin Dashboard</h1>
+                <small>Halo Min, jangan lupa rajin Git Pull!</small>
+            </div>
+        </div>
+        <div class="flex flex-row gap-5 justify-end items-center p-3">
+            <div class="text-right">
+                <h1 class="text-2xl text-yuldark-500 font-bold">yulje_pw</h1>
+                <small>YULJE's Database</small>
+            </div>
+            <i class="text-6xl text-blue-950 bi bi-database-fill-gear"></i>
+        </div>
+    </nav>
+
+    <main class="flex flex-row gap-10 justify-between items-start px-5 mt-5">
+        <section class="grow">
+            <h1 class="text-3xl text-center font-bold text-blue-800">Jadwal Konsultasi Aktif</h1>
+            <p class="text-center text-sm font-light italic">Tabel: jadwal_konsultasi</p>
+
+            <div class="flex flex-row justify-between items-center mt-3">
+                <div class="flex flex-row gap-5 text-xs">
+                    <div class="flex flex-row gap-2 h-5 justify-center items-center">
+                        <span class="block bg-blue-200 rounded-sm w-4">&nbsp;</span>
+                        <small class="italic">Pria</small>
+                    </div>
+                    <div class="flex flex-row gap-2 h-5 justify-center items-center">
+                        <span class="block bg-pink-200 rounded-sm w-4">&nbsp;</span>
+                        <small class="italic">Wanita</small>
+                    </div>
+                </div>
+
+                <div class="flex flex-row gap-5 text-xs">
+                    <div class="flex flex-row gap-2 h-5 justify-center items-center">
+                        <small class="italic">Edit Data</small>
+                        <span class="block bg-yellow-500 rounded-sm w-4">&nbsp;</span>
+                    </div>
+                    <div class="flex flex-row gap-2 h-5 justify-center items-center">
+                        <small class="italic">Hapus</small>
+                        <span class="block bg-red-500 rounded-sm w-4">&nbsp;</span>
+                    </div>
+                    <div class="flex flex-row gap-2 h-5 justify-center items-center">
+                        <small class="italic">Tandai Sebagai Selsai</small>
+                        <span class="block bg-green-500 rounded-sm w-4">&nbsp;</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-5 shadow-sm p-3">
+                <table class="table-auto border border-2 border-collapse border-white p-4 w-full text-sm">
+                    <thead class="bg-stone-50">
+                        <tr>
+                            <th class="w-5">No.</th>
+                            <th class="min-w-30">Nama Pasien</th>
+                            <th class="min-w-90">Keluhan</th>
+                            <th>Dokter</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="text-center">1</td>
+                            <td><span class="p-1 rounded-md bg-blue-200">Malcolm Lockyer</span></td>
+                            <td>L-L-L-Lava, C-C-C-Chicken, Steve's Lava Chicken</td>
+                            <td class="text-center">Dr. Hero Brian</td>
+                            <td class="text-center p-2"><span class="bg-yellow-300 p-2 rounded-md font-bold text-yellow-950">Terjadwal</span></td>
+                            <td class="flex flex-row flex-wrap gap-2 text-center">
+                                <a href="/dokter/jadwal" class="bg-yellow-500 hover:bg-yellow-700 cursor-pointer p-1 grow text-white rounded-md"><i class="bi bi-pencil-square"></i></a>
+                                <a href="/dokter/jadwal/delete" onclick="return confirm('Yakin ingin menghapus?')" class="bg-red-500 hover:bg-red-700 cursor-pointer p-1 grow text-white rounded-md"><i class="bi bi-trash"></i></a>
+                                <a href="/dokter/jadwal/done" class="bg-green-500 hover:bg-green-700 cursor-pointer p-1 grow text-white rounded-md"><i class="bi bi-check"></i></a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        
+        <section>
+            <h1 class="text-3xl text-center font-bold text-blue-800">Daftar Dokter</h1>
+            <p class="text-center text-sm font-light italic">Tabel: dokter, spesialis, jadwal_praktik</p>
+
+            <div class="flex flex-col gap-4 mt-5">
+                <div class="bg-stone-50 border border-1 border-white p-3 rounded-md shadow-sm">
+                    <h3 class="font-bold text-yuldark-500">Nama Dokter</h3>
+                    <p class="text-sm text-blue-500 mb-3">Spesialis</p>
+                    <small class="text-green-800 me-4"><i class="bi bi-calendar-event me-2"></i>Hari</small>
+                    <small class="text-stone-500"><i class="bi bi-clock-history me-2"></i>08:00 - 13:000</small>
+                </div>
+            </div>
+        </section>
+    </main>
 </body>
 </html>

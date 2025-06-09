@@ -157,15 +157,30 @@ app.get('/jadwal/dokter', (req, res) => {
 
 // Tabel list jadwal dengan CRUD dashboard
 app.get('/admin', (req, res) => {
-    res.end();
+    // Sort by date?
+    res.render("admin.ejs");
 });
 
-// Update/Delete
+// Update
 app.get('/admin/jadwal/:id', (req, res) => {
+    const target = req.params.id;
+    
     res.end();
 });
 
-// Request POST, PUT, DELETE coming soon...
+// Delete
+app.get('/admin/jadwal/:id/delete', (req, res) => {
+    const target = req.params.id;
+    
+    res.end();
+});
+
+// Mark as done (Masuk ke riwayat konsultasi)
+app.get('/admin/jadwal/:id/done', (req, res) => {
+    const target = req.params.id;
+
+    res.end();
+});
 
 app.listen(port, () => {
     console.log(`Server berhasil berjalan di http://localhost:${port}`);
