@@ -5,31 +5,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jadwal Dokter</title>
     
-    <!-- Tailwind -->
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-
-    <!-- Inter FONT Google APIs -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
-
-    <!-- Favicon -->
-    <link rel="icon" href="img/Yulje Icon Logo.png">
+    <%- include('modules/head.ejs') %>
 
     <style>
-        * { 
-            transition: 0.3s;
-            --color-yuldark: #06152C;
-            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        #hero-container {
+            background-color: #394A74DD;
+            background-image: url('/img/Yulje_Front.png');
+            background-blend-mode:soft-light;
+            background-position: 100% 30%;
+            background-size: cover;
+            background-repeat: no-repeat;
         }
-
-        a { text-decoration: none; }
-
-        .text-yuldark-500 { color: var(--color-yuldark); }
-        .bg-yuldark-500 { background-color: var(--color-yuldark); }
     </style>
 </head>
 <body>
+    <%- include('modules/navbar.ejs') %>
     
+    <main id="hero-container" class="min-h-dvh md:px-15 lg:px-25 flex flex-col justify-center items-center gap-10 p-6 py-10 relative">
+        <h1 class="text-white font-bold md:text-3xl lg:text-4xl text-shadow-lg">Jadwal Dokter</h1>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 w-full">
+            <% results.forEach(row => { %>
+                <div class="grow rounded-md flex flex-row lg:flex-col hover:scale-105 shadow-md">
+                    <div style="background-image: url('/img/dokter_default_male.jpg'); background-position: 50% 50%; background-size: cover;" class="block bg-blue-200 w-30 aspect-cover aspect-1/1 lg:aspect-auto lg:w-full rounded-s-md lg:rounded-b-none lg:rounded-t-md">
+                        <img src="/img/<%= row.nama_dokter %>.png" 
+                            class="bg-blue-200 w-30 aspect-cover aspect-1/1 lg:aspect-auto lg:w-full h-full" 
+                            style="border-radius: inherit;"
+                            onerror="this.onerror=null;this.src='/img/dokter_default_male.jpg';">
+                    </div>
+                    <div class="p-4 pt-5 bg-white rounded-e-md lg:rounded-t-none lg:rounded-b-md lg:text-center grow flex flex-col gap-2">
+                        <h4 class="font-bold text-yuldark-500 text-xl"><%= row.nama_dokter %></h4>
+                        <small class="font-semibold text-blue-700">Spesialis <%= row.nama_spesialis %></small>
+                        <div class="flex flex-row justify-between items center mt-4">
+                            <small class="text-green-800"><i class="bi bi-calendar-event me-2"></i><%= row.hari %></small>
+                            <small class="text-stone-500"><i class="bi bi-clock-history me-2"></i><%= row.waktu_mulai.slice(0,5) %> - <%= row.waktu_selesai.slice(0,5) %></small>
+                        </div>
+                    </div>
+                </div>
+            <% }); %>
+        </div>
+    </main>
+
+    <%- include('modules/footer.ejs') %>
 </body>
 </html>

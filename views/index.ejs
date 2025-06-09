@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YULJE Medical Center | Health Consultation</title>
+
+    <%- include("modules/head.ejs") %>
+
+    <style>
+        #hero-container {
+            background-color: #394A74DD;
+            background-image: url('img/Yulje_Front.png');
+            background-blend-mode:soft-light;
+            background-position: 100% 30%;
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+    </style>
+</head>
+
+<body class="bg-stone-100">
+    <%- include("modules/navbar.ejs") %>
+
+    <main class="mb-5">
+        <section id="hero-container" class="min-h-dvh md:px-15 lg:px-25 flex flex-col md:flex-row justify-between md:items-center gap-10 p-4 py-10 relative">
+            <div class="flex flex-col gap-8 md:mb-15">
+                <h1 class="text-white font-extrabold text-4xl lg:text-6xl/18 tracking-tight"><span class="text-sky-200">YULJE Medical Center</span> <br>Layanan Spesialis Medis <br>& Konsultasi Kesehatan</h1>
+                <p class="text-white lg:text-2xl tracking-wide">Jaga kesehatan pribadi dengan konsultasi dan <br>check-up secara rutin dengan dokter spesialis.</p>
+                <div class="flex flex-row gap-5">
+                    <a class="text-yuldark-500 bg-white hover:bg-stone-300 font-extrabold p-2 ps-5 rounded-full flex flex-row justify-between gap-3 hover:gap-8 items-center" href="/pengajuan">Konsultasi Sekarang <img class="inline-block w-10" src="img/icon_Group_Fill.png"></a>
+                    <a class="text-white hover:bg-blue-800 border font-medium py-2 px-5 rounded-full flex flex-row justify-between gap-5 hover:gap-8 items-center" href="/jadwal">Cek Jadwal <img class="inline-block w-8" src="img/icon_Calendar2Date.png"></a>
+                </div>
+            </div>
+            <img class="aspect-4/5 aspect-cover w-50 md:w-75 lg:w-90 m-auto translate-y-5 md:mb-15 hover:scale-103 hover:shadow-lg" src="img/Hero_Consultant.png">
+        </section>
+
+        <section id="faq" class="p-4 md:px-15 lg:px-25 flex flex-col md:flex-row flex-wrap gap-7 relative justify-between">
+            <div class="flex flex-row gap-5 items-center justify-center grow p-5 rounded-md bg-stone-200 shadow-[0_15px_0_#CCC] -translate-y-15 hover:-translate-y-20">
+                <i class="text-5xl text-blue-950 bi bi-clipboard-heart-fill"></i>
+                <div>
+                    <h3 class="font-bold text-xl text-blue-950">Konsultasi Kesehatan</h3>
+                    <small>Ajukan Konsultasi dengan Dokter</small>
+                </div>
+            </div>
+            <div class="flex flex-row gap-5 items-center justify-center grow p-5 rounded-md bg-stone-200 shadow-[0_15px_0_#CCC] -translate-y-15 hover:-translate-y-20">
+                <i class="text-5xl text-blue-950 bi bi-person-workspace"></i>
+                <div>
+                    <h3 class="font-bold text-xl text-blue-950">Konsultasi Virtual</h3>
+                    <small>Konsultasi Daring dengan Dokter</small>
+                </div>
+            </div>
+            <div class="flex flex-row gap-5 items-center justify-center grow p-5 rounded-md bg-stone-200 shadow-[0_15px_0_#CCC] -translate-y-15 hover:-translate-y-20">
+                <i class="text-5xl text-blue-950 bi bi-heart-pulse-fill"></i>
+                <div>
+                    <h3 class="font-bold text-xl text-blue-950">Layanan Klinis</h3>
+                    <small>Diagnosis dan Tindakan Kesehatan</small>
+                </div>
+            </div>
+        </section>
+
+        <section class="p-4 md:px-15 lg:px-25 flex flex-col gap-5">
+            <h1 class="text-center text-2xl lg:text-3xl text-yuldark-500 font-bold">Pertanyaan Yang Sering Diajukan (FAQ)</h1>
+            <div class="mt-5 bg-stone-300 p-5 rounded-md">
+                <div class="flex flex-row justify-between items-center gap-5">
+                    <span class="text-lg font-semibold">Bagaimana cara saya mengajukan konsultasi dengan dokter?</span>
+                    <i class="bi bi-plus-circle-dotted text-2xl text-yuldark-500"></i>
+                </div>
+                <hr class="text-stone-400 my-4">
+                <p class="text-stone-700 text-sm">Untuk mengajukan Konsultasi dengan Dokter, anda dapat menuju ke halaman <a class="text-cyan-700" href="/pengajuan"><u>Pengajuan</u></a>. Kemudian isi data diri anda sesuai dengan kolom yang disajikan. Pastikan untuk melengkapi setiap kolom yang ada sesuai dengan biodata pribadi. Klik <b>"Lanjut"</b> dan lakukan proses sesuai dengan instruksi.</p>
+            </div>
+            <div class="bg-stone-300 p-5 rounded-md">
+                <div class="flex flex-row justify-between items-center gap-5">
+                    <span class="text-lg font-semibold">Apakah saya bisa memilih jadwal konsultasi sesuai keinginan?</span>
+                    <i class="bi bi-plus-circle-dotted text-2xl text-yuldark-500"></i>
+                </div>
+                <hr class="text-stone-400 my-4">
+                <p class="text-stone-700 text-sm">Ya, anda bisa memilih tanggal dan waktu konsultasi pada halaman pengajuan konsultasi. Kolom tanggal konsultasi dapat diisi dengan tanggal, bulan, dan tahun konsultasi yang anda inginkan. Kemudian terdapat kolom waktu yang dapat anda isikan sesuai dengan keinginan. Dokter dan waktu tersedia yang paling dekat dengan waktu yang telah anda isikan akan diperiksa dan ditentukan oleh sistem. Jadwal akhir dapat anda periksa dalam nomor antrian setelah memproses ajuan konsultasi.</p>
+            </div>
+            <div class="bg-stone-300 p-5 rounded-md">
+                <div class="flex flex-row justify-between items-center gap-5">
+                    <span class="text-lg font-semibold">Apakah saya dapat melihat jadwal dokter yang tersedia?</span>
+                    <i class="bi bi-plus-circle-dotted text-2xl text-yuldark-500"></i>
+                </div>
+                <hr class="text-stone-400 my-4">
+                <p class="text-stone-700 text-sm">Ya, anda dapat melihat jadwal lengkap dokter yang tersedia pada hari khusus dengan informasi ketersedian rentang waktu. Anda akan dijadwalkan untu melakukan konsultasi sesuai dengan jadwal tersebut yang nantinya dapat anda periksa pada nomor antrian dan jadwal akhir. Untuk melihat jadwal dokter yang tersedia secara lengkap, anda dapat mengakses halaman <a class="text-cyan-700" href="/jadwal/dokter"><u>Jadwal Dokter.</u></a></p>
+            </div>
+        </section>
+    </main>
+
+    <%- include('modules/footer.ejs') %>
+</body>
+
+</html>
