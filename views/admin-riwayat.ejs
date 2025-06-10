@@ -18,27 +18,16 @@
     </style>
 </head>
 <body>
-    <nav class="flex flex-row justify-between items-center">
-        <div class="flex flex-row gap-5 justify-start items-center p-3">
-            <img src="/img/Yulje Icon Logo.png" class="w-15" alt="Yulje Logo">
-            <div class="flex flex-col">
-                <h1 class="text-2xl text-yuldark-500 font-bold">YULJE's Admin Dashboard</h1>
-                <small>Halo Min, jangan lupa rajin Git Pull!</small>
-            </div>
-        </div>
-        <div class="flex flex-row gap-5 justify-end items-center p-3">
-            <div class="text-right">
-                <h1 class="text-2xl text-yuldark-500 font-bold">yulje_pw</h1>
-                <small>YULJE's Database</small>
-            </div>
-            <i class="text-6xl text-blue-950 bi bi-database-fill-gear"></i>
-        </div>
-    </nav>
+    <%- include('modules/admin-navbar.ejs') %>
 
     <main class="flex flex-row gap-10 justify-between items-start px-5 my-5 flex-wrap lg:flex-nowrap">
-        <section class="mt-10">
+        <section class="grow">
             <h1 class="text-3xl text-center font-bold text-blue-800">Riwayat Konsultasi</h1>
             <p class="text-center text-sm font-light italic">Tabel: riwayat_konsultasi</p>
+
+            <div class="text-left">
+                <a href="/admin/" class="text-blue-500 italic underline underline-offset-1"><i class="me-1 bi bi-chevron-bar-left"></i>Kembali</a>
+            </div>
 
             <div class="mt-5 shadow-sm p-3">
                 <table class="table-auto border border-2 border-collapse border-white p-4 w-full text-sm">
@@ -61,7 +50,7 @@
                                 <td><%= index + 1 %></td>
                                 <td><%= row.id_pasien %></td>
                                 <td><%= row.id_dokter %></td>
-                                <td><%= row.tanggal %></td>
+                                <td><%= new Date(row.tanggal).toLocaleDateString('id-ID', { day: 'numeric', weekday: 'long', month: 'long', year: 'numeric' }) %></td>
                                 <td><%= row.waktu %></td>
                                 <td><%= row.keluhan %></td>
                                 <td><%= row.status %></td>

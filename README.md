@@ -7,10 +7,17 @@ _Disclaimer: Nama dan inspirasi hanya berupa objek fiktif belaka_
 **Deskripsi**
 Projek aplikasi ini bertujuan untuk mengaplikasikan *study case* jadwal konsultasi antara dokter dengan pasien. Program menyajikan informasi mengenai penjadwalan yang telah dipesan oleh pasien dan status dari jadwal tersebut, mulai dari tanggal, deskripsi, status, dan lain-lain.
 
-**Flow Utama**
+**Flow Utama (Client-Side)**
 - Mengisi data diri pasien, jadwal konsultasi tanggal, jam, spesialis, keluhan (dokter diassign oleh sistem).
 - Jika berhasil, mengarah ke pembayaran/transaksi.
 - Jika gagal, kembali ke halaman input konsultasi.
+- Pengguna akan mendapatkan nomor antrian sesuai dengan ID.
+  
+**Administrasi (Server-Side)**
+- Melihat jadwal konsultasi aktif.
+- Mengubah/mengedit jadwal yang ada.
+- Menghapus jadwal.
+- Memindahkan data ke riwayat konsultasi (backup).
 
 ![Form Konsultasi](public/schemas/mockup_FormKonsul.png)
 
@@ -29,6 +36,8 @@ Projek aplikasi ini bertujuan untuk mengaplikasikan *study case* jadwal konsulta
 - express
 - ejs
 
+![Admin Dashboard](public/schemas/mockup_Admin.png)
+
 **Routes / Endpoints**
 - http://localhost:3000/
 - http://localhost:3000/pengajuan
@@ -40,6 +49,7 @@ Projek aplikasi ini bertujuan untuk mengaplikasikan *study case* jadwal konsulta
 - http://localhost:3000/jadwal/dokter
 - http://localhost:3000/admin/
 - http://localhost:3000/admin/jadwal/:id
+- http://localhost:3000/admin/jadwal/:id/edit
 - http://localhost:3000/admin/jadwal/:id/delete
 - http://localhost:3000/admin/jadwal/:id/done
 
@@ -113,12 +123,7 @@ yulje-app/
 ├─ views/  
 │  ├─ modules/  
 │  │  ├─ navbar.ejs  
-│  │  ├─ footer.ejs  
 │  ├─ index.ejs  
-│  ├─ pengajuan.ejs  
-│  ├─ jadwal.ejs  
-│  ├─ proses.ejs  
-│  ├─ jadwal-dokter.ejs  
 │  ├─ admin.ejs  
 ├─ .gitignore  
 ├─ db.js  
@@ -131,13 +136,17 @@ yulje-app/
 ### FAQ Frequently Asked Questions
 **Q: Bagaimana cara menjalankan aplikasi?**  
 A: Berikut adalah penjelasan singkat:
-1. **Copy repository** ini; 
-2. Buka **PhpMyAdmin > Import** (atau http://localhost/phpmyadmin/index.php?route=/server/import);
-3. **Copy** isi file [`database/yulje_pw.sql`](database/yulje_pw.sql) lalu paste.
-4. **Run** / jalankan script SQL-nya untuk membuat database beserta tabel-tabelnya. *Note: isi tabel kosong.*
-5. Buka folder projek, lalu instalasi package yang ada sesuai list di atas halaman ini.
-6. Jalankan `node index.js`. Pastikan untuk memeriksa konfigurasi db.js terkait user dan password database.
-7. Buka browser, lalu akses alamat http://localhost:3000.
+1. **Clone / Copy repository** ini; 
+2. Buka XAMPP atau local MySQL provider lainnya. Nyalakan fungsi MySQL dan Apache.
+3. Buka **PhpMyAdmin > Import** (atau http://localhost/phpmyadmin/index.php?route=/server/import)
+4. **Copy** isi file [`database/yulje_pw.sql`](database/yulje_pw.sql) lalu paste. Apabila tidak muncul sebuah database baru, maka buatlah database baru dengan nama `yulje_pw`. Kemudian ulangi dari langkah 4.
+5. **Run** / jalankan script SQL-nya untuk membuat database beserta tabel-tabelnya. *Note: isi tabel kosong.*
+6. Buka folder projek, lalu instalasi package yang ada sesuai list di atas halaman ini (ejs, express, mysql2).
+7. Jalankan `node index.js`. Pastikan untuk memeriksa konfigurasi db.js terkait user dan password database.
+8. Buka browser, lalu akses alamat http://localhost:3000.
 
 **Q: Apakah aplikasi ini Open Source?**  
 A: Tidak, source-code aplikasi ini hanya dapat digunakan untuk penggunaan pribadi dan tidak diperkenankan untuk mengganti kepemilikan asli.
+  
+  
+*Credits: Freepik for Providing Stock Images.**
