@@ -2,6 +2,7 @@ const express = require('express');
 const db = require('./db');
 const fs = require('fs');
 const path = require('path');
+const { renderFile } = require('ejs');
 
 const app = express();
 const port = 3000;
@@ -26,7 +27,7 @@ app.get('/', (req, res) => {
 
 // Form Pengajuan Konsultasi -> /proses
 app.get('/pengajuan', (req, res) => {
-    res.render("pengajuan-1-form.ejs");
+    res.render("pengajuan-1-form.ejs", { error_msg: 0, data: req.body });
 });
 
 // Proses Pengajuan -> /proses/transaksi
@@ -49,6 +50,11 @@ app.post('/proses', (req, res) => {
         if (dokter_tersedia.length > 0) {
             // Menugaskan dokter pertama yang available
             dokter_ditugaskan = dokter_tersedia[0];
+        } else {
+            return res.render('pengajuan-1-form.ejs', { 
+                error_msg: 1,
+                data: req.body
+            });
         }
 
         // nama hanya untuk display, id dan biaya untuk passing data
@@ -157,16 +163,112 @@ app.get('/jadwal/dokter', (req, res) => {
 
 // Tabel list jadwal dengan CRUD dashboard
 app.get('/admin', (req, res) => {
-    res.end();
+    // Sort by date?
+    const jadwal_konsultasi = `SELECT DISTINCT * FROM jadwal_konsultasi k JOIN pasien p ON k.id_pasien=p.id_pasien JOIN dokter d ON d.id_dokter=k.id_dokter JOIN spesialis s ON d.id_spesialis=s.id_spesialis JOIN jadwal_praktik jp ON d.id_praktik=jp.id_praktik ORDER BY k.tanggal ASC`;
+
+    db.query(jadwal_konsultasi, (err, results) => {
+        if(err) throw err;
+        res.render("admin.ejs", { results });
+    });
 });
 
-// Update/Delete
+// Update
 app.get('/admin/jadwal/:id', (req, res) => {
-    res.end();
+    const target = req.params.id;
+    const jadwal_sql = `SELECT * FROM jadwal_konsultasi k JOIN pasien p ON k.id_pasien=p.id_pasien JOIN dokter d ON k.id_dokter=d.id_dokter WHERE k.id_pasien = ?`;
+    
+    db.query(jadwal_sql, [target], (err, results) => {
+        if(err) throw err;
+        res.render("admin-edit.ejs", { data: results[0] });
+    });
 });
 
-// Request POST, PUT, DELETE coming soon...
+app.post('/admin/jadwal/:id/edit', (req, res) => {
+    const formData = req.body;
+    const target = req.params.id;
 
+    const update_sql = `UPDATE jadwal_konsultasi SET id_pasien = ?, id_dokter = ?, tanggal = ?, waktu = ?, keluhan = ?, status = ? WHERE id_konsultasi = ?`;
+    const update_values = [ formData.id_pasien, formData.id_dokter, formData.tanggal, formData.waktu, formData.keluhan, formData.status, target ];
+
+    db.query(update_sql, update_values, (err, results) => {
+        if (err) throw err;
+        res.redirect('/admin');
+    });
+});
+
+// Delete
+app.get('/admin/jadwal/:id/delete', (req, res) => {
+    const target = req.params.id;
+
+    const hapus_transaksi = `DELETE FROM transaksi WHERE id_konsultasi = ?`;
+    db.query(hapus_transaksi, [target], (err) => {
+        if(err) throw err;
+    });
+
+    const delete_sql = `DELETE FROM jadwal_konsultasi WHERE id_konsultasi = ?`;
+    db.query(delete_sql, [target], (err, results) => {
+        if(err) throw err;
+        res.redirect("/admin");
+    });
+});
+
+// Mark as done (Masuk ke riwayat konsultasi)
+app.get('/admin/jadwal/:id/done', (req, res) => {
+    const target = req.params.id;
+
+    // Ambil data dari jadwal_konsultasi berdasarkan id
+    const done_sql = `SELECT * FROM jadwal_konsultasi WHERE id_konsultasi = ?`;
+
+    db.query(done_sql, [target], (err, results) => {
+        if (err) throw err;
+        if (results.length === 0) return res.redirect('/admin');
+
+        const row = results[0];
+
+        const insert_sql = `
+            INSERT INTO riwayat_konsultasi (id_pasien, id_dokter, tanggal, waktu, keluhan, status, diagnosis, tindakan)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+        `;
+        const insert_values = [
+            row.id_pasien,
+            row.id_dokter,
+            row.tanggal,
+            row.waktu,
+            row.keluhan,
+            'Selesai',
+            '',
+            ''
+        ];
+
+        db.query(insert_sql, insert_values, (err, results) => {
+            if (err) throw err;
+
+            // Menghapus refering transaksi untuk menghapus jadwal_konsultasi
+            const hapus_transaksi = `DELETE FROM transaksi WHERE id_konsultasi = ?`;
+
+            db.query(hapus_transaksi, [target], (err) => {
+                if(err) throw err;
+            });
+
+            // Hapus dari jadwal_konsultasi setelah dipindahkan ke riwayat
+            const delete_sql = `DELETE FROM jadwal_konsultasi WHERE id_konsultasi = ?`;
+
+            db.query(delete_sql, [target], (err) => {
+                if (err) throw err;
+                res.redirect('/admin/riwayat');
+            });
+        });
+    });
+});
+
+app.get('/admin/riwayat', (req, res) => {
+    db.query('SELECT * FROM riwayat_konsultasi ORDER BY tanggal DESC', (err, results) => {
+        if(err) throw err;
+        res.render("admin-riwayat.ejs", { results });
+    });
+});
+
+// I'm kinda tired of writing SQL Queries this much. ugh
 app.listen(port, () => {
     console.log(`Server berhasil berjalan di http://localhost:${port}`);
 });

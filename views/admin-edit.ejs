@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Jadwal | Yulje</title>
+
+    <%- include('modules/head.ejs') %>
+
+    <style>
+        #radio_1:checked + label {
+            box-shadow: 0 10px 0px rgb(230, 207, 108);
+            transform: translateY(-5px);
+        }
+        #radio_2:checked + label {
+            box-shadow: 0 10px 0px rgb(47, 175, 115);
+            transform: translateY(-5px);
+        }
+    </style>
+</head>
+<body>
+    <%- include('modules/admin-navbar.ejs') %>
+
+    <main class="m-5 mt-0 bg-white rounded-b-lg">
+        <div class="bg-cyan-400 text-white text-center py-3 text-xl font-bold rounded-t-lg">Edit Jadwal Konsultasi</div>
+        <form action="/admin/jadwal/<%= data.id_konsultasi %>/edit" method="POST" class="flex flex-row flex-wrap gap-10 p-7 justify-start">
+            <div class="flex flex-col gap-5 justify-between items-start grow">
+                <div class="p-2 px-4 bg-stone-100 w-full rounded-md">
+                    <label for="" class="block mb-1">Nama Lengkap</label>
+                    <p class="font-bold text-xl"><%= data.nama_pasien %></p>
+                    <input type="hidden" name="nama" value="<%= data.nama_pasien %>">
+                    <input type="hidden" name="id_pasien" value="<%= data.id_pasien %>">
+                    <!-- <input type="hidden" name="status" value="<%= data.status %>"> -->
+                </div>
+                <div class="p-2 px-4 bg-stone-100 w-full rounded-md">
+                    <label for="" class="block mb-1">Tanggal Lahir</label>
+                    <p class="font-bold text-xl"><%= new Date(data.tanggal_lahir).toLocaleDateString('id-ID', { day: 'numeric', weekday: 'long', month: 'long', year: 'numeric' }) %></p>
+                    <input type="hidden" name="tanggal_lahir" value="<%= data.tanggal_lahir %>">
+                </div>
+                <div class="p-2 px-4 bg-stone-100 w-full rounded-md">
+                    <label for="" class="block mb-1">Jenis Kelamin</label>
+                    <p class="font-bold text-xl"><%= data.jenis_kelamin %></p>
+                    <input type="hidden" name="jk" value="<%= data.jenis_kelamin %>">
+                </div>
+                <div class="p-2 px-4 bg-stone-100 w-full rounded-md">
+                    <label for="" class="block mb-1">Kontak</label>
+                    <p class="font-bold text-xl"><%= data.kontak %></p>
+                    <input type="hidden" name="kontak" value="<%= data.kontak %>">
+                </div>
+                <div class="p-2 px-4 bg-stone-100 w-full rounded-md">
+                    <label for="" class="block mb-1">Alamat</label>
+                    <p class="font-bold text-xl"><%= data.alamat %></p>
+                    <input type="hidden" name="alamat" value="<%= data.alamat %>">
+                </div>
+            </div>
+            
+            <div class="grow bg-stone-100 rounded-lg p-5">
+                <label for="" class="font-semibold block mb-1">Keluhan</label>
+                <p class="text-xl"><%= data.keluhan %></p>
+                <input type="hidden" name="keluhan" value="<%= data.keluhan %>">
+            </div>
+
+            <div class="flex flex-col gap-5 grow">
+                <div>
+                    <label for="id_dokter" class="block mb-1 font-semibold">Dokter</label>
+                    <select name="id_dokter" class="w-full border rounded-md px-3 py-2 bg-stone-100 mb-3" required>
+                        <option value="" selected disabled>Ubah Dokter Penanggung Jawab</option>
+                        <% 
+                        const doctors = [
+                            { id: 1, name: "Dr. Maya Kartika" },
+                            { id: 2, name: "Dr. Rizal Anwar" },
+                            { id: 3, name: "Dr. Sari Wulandari" },
+                            { id: 4, name: "Dr. Andhika Satria" },
+                            { id: 5, name: "Dr. Putri Aulia" },
+                            { id: 6, name: "Dr. Yudha Mardika" },
+                            { id: 7, name: "Dr. Lestari Handayani" },
+                            { id: 8, name: "Dr. Farhan Dwi" },
+                            { id: 9, name: "Dr. Ayu Ramadhani" },
+                            { id: 10, name: "Dr. Zainul Arifin" },
+                            { id: 11, name: "Dr. Fitriani" },
+                            { id: 12, name: "Dr. Hafidz Syaiful" },
+                            { id: 13, name: "Dr. Widya Aari" },
+                            { id: 14, name: "Dr. Reza Mahendra" },
+                            { id: 15, name: "Dr. Intan Amelia" }
+                        ];
+                        %>
+
+                        <% doctors.forEach(function(doc) { %>
+                            <option value="<%= doc.id %>" <% if(data.id_dokter === doc.id) { %>selected <% } %>><%= doc.name %></option>
+                        <% }) %>
+                    </select>
+
+                    <label for="tanggal" class="block mb-1 font-semibold">Tanggal Konsultasi</label>
+                    <input type="date" name="tanggal" class="w-full border rounded-md px-3 py-2 mb-3 bg-stone-100" value="<%= new Date(data.tanggal).toISOString().slice(0,10) %>">
+
+                    <label for="jam_konsultasi" class="block mb-1 font-semibold">Waktu Konsultasi</label>
+                    <input type="time" name="waktu" class="w-full border rounded-md px-3 py-2 mb-3 bg-stone-100" value="<%= data.waktu %>">
+                    
+                    <label for="" class="block mb-1 font-semibold">Status</label>
+                    <div class="flex flex-row gap-5 mt-2 p-4 bg-stone-100 rounded-lg">
+                        <% const status = data.status; %>
+                        <div class="grow">
+                            <input class="hidden" id="radio_1" type="radio" name="status" <% if(status === "Terjadwal") { %>checked<% } %> value="Terjadwal">
+                            <label class="bg-yellow-200 flex p-4 cursor-pointer rounded-lg justify-center" for="radio_1">
+                                <span class="text-sm font-semibold">Terjadwal</span>
+                            </label>
+                        </div>
+                        <div class="grow">
+                            <input class="hidden" id="radio_2" type="radio" name="status" <% if(status === "Selesai") { %>checked<% } %> value="Selesai">
+                            <label class="bg-green-200 flex p-4 cursor-pointer rounded-lg justify-center" for="radio_2">
+                                <span class="text-sm font-semibold">Selesai</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex flex-wrap w-full gap-5 justify-between items-center text-center mt-3 text-sm">
+                    <a class="border border-2 border-red-200 text-red-800 hover:bg-red-300 p-5 grow rounded-lg font-bold" href="/admin">Batal</a>
+                    <button class="bg-blue-500 hover:bg-blue-700 p-5 grow rounded-lg text-white font-bold cursor-pointer" type="submit">Perbarui</button>
+                </div>
+            </div>
+        </form>
+    </main>
+</body>
+</html>

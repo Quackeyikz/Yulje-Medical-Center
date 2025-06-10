@@ -9,33 +9,38 @@
 	<%- include("modules/head.ejs") %>
 </head>
 
-<body class="bg-gray-100">
+<body>
 	<%- include("modules/navbar.ejs") %>
 	
 	<main class="max-w-3xl mx-auto mt-10 mb-10 bg-white shadow-lg rounded-2xl overflow-hidden">
 		<div class="bg-cyan-400 text-white text-center py-5 text-xl font-bold">Pendaftaran Jadwal Konsultasi</div>
 		<div class="p-6">
 			<form method="post" action="/proses" class="space-y-6">
+				<% if(error_msg === 1) { %>
+					<div class="w-full p-4 bg-red-300 text-red-800 rounded-lg font-semibold border border-1 border-red-800">
+						Maaf, tidak ada dokter yang tersedia untuk jadwal dan poli yang dipilih.
+					</div>
+				<% } %>
 				<div>
 					<h2 class="text-lg font-semibold mb-4">Data Pasien</h2>
 					
 					<div class="mb-4">
 						<label for="nama" class="block mb-1">Nama Lengkap</label>
 						<input type="text" id="nama" name="nama" class="w-full border rounded-md px-3 py-2"
-						placeholder="Masukkan nama lengkap" required>
+						placeholder="Masukkan nama lengkap" <% if(error_msg === 1) { %>value="<%= data.nama %>" <% } %> required>
 					</div>
 					
 					<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
 						<div>
 							<label for="tanggal_lahir" class="block mb-1">Tanggal Lahir</label>
 							<input type="date" id="tanggal_lahir" name="tanggal_lahir" class="w-full border rounded-md px-3 py-2"
-							required>
+							<% if(error_msg === 1) { %>value="<%= data.tanggal_lahir %>" <% } %> required>
 						</div>
 						<div>
 							<label for="jk" class="block mb-1">Jenis Kelamin</label>
 							<select id="jk" name="jk" class="w-full border rounded-md px-3 py-2" required>
 								<option value="" disabled selected>Pilih jenis kelamin</option>
-								<option value="Pria">Pria</option>
+								<option value="Pria" <% if(error_msg === 1) { %>selected<% } %>>Pria</option>
 								<option value="Wanita">Wanita</option>
 							</select>
 						</div>
@@ -43,12 +48,12 @@
 					
 					<div class="mb-4">
 						<label for="kontak" class="block mb-1">Kontak (Nomor Telepon Aktif)</label>
-						<input type="tel" id="kontak" name="kontak" class="w-full border rounded-md px-3 py-2" placeholder="+62xxxxxxxxxxx" required>
+						<input type="tel" id="kontak" <% if(error_msg === 1) { %>value="<%= data.kontak %>" <% } %> name="kontak" class="w-full border rounded-md px-3 py-2" placeholder="+62xxxxxxxxxxx" required>
 					</div>
 					
 					<div class="mb-4">
 						<label for="alamat" class="block mb-1">Alamat</label>
-						<textarea id="alamat" name="alamat" rows="3" class="w-full border rounded-md px-3 py-2" placeholder="Masukkan alamat lengkap" required></textarea>
+						<textarea id="alamat" name="alamat" rows="3" class="w-full border rounded-md px-3 py-2" placeholder="Masukkan alamat lengkap" required><% if(error_msg === 1) { %><%= data.alamat %><% } %></textarea>
 					</div>
 				</div>
 				
@@ -59,11 +64,11 @@
 					<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
 						<div>
 							<label for="tgl_konsultasi" class="block mb-1">Tanggal Konsultasi</label>
-							<input type="date" id="tgl_konsultasi" name="tgl_konsultasi" class="w-full border rounded-md px-3 py-2" required>
+							<input type="date" id="tgl_konsultasi" name="tgl_konsultasi" <% if(error_msg === 1) { %>value="<%= data.tgl_konsultasi %>" <% } %> class="w-full border rounded-md px-3 py-2" required>
 						</div>
 						<div>
 							<label for="jam_konsultasi" class="block mb-1">Jam Konsultasi</label>
-							<input type="time" id="jam_konsultasi" name="jam_konsultasi" class="w-full border rounded-md px-3 py-2" required>
+							<input type="time" id="jam_konsultasi" name="jam_konsultasi" <% if(error_msg === 1) { %>value="<%= data.jam_konsultasi %>" <% } %> class="w-full border rounded-md px-3 py-2" required>
 						</div>
 					</div>
 					
@@ -89,7 +94,7 @@
 					
 					<div class="mb-4">
 						<label for="keluhan" class="block mb-1">Keluhan</label>
-						<textarea id="keluhan" name="keluhan" rows="3" class="w-full border rounded-md px-3 py-2" placeholder="Tulis keluhan Anda" required></textarea>
+						<textarea id="keluhan" name="keluhan" rows="3" class="w-full border rounded-md px-3 py-2" placeholder="Tulis keluhan Anda" required><% if(error_msg === 1) { %><%= data.keluhan %><% } %></textarea>
 					</div>
 				</div>
 				
