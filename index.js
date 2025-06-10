@@ -2,6 +2,7 @@ const express = require('express');
 const db = require('./db');
 const fs = require('fs');
 const path = require('path');
+const { renderFile } = require('ejs');
 
 const app = express();
 const port = 3000;
@@ -169,15 +170,47 @@ app.get('/admin', (req, res) => {
 // Update
 app.get('/admin/jadwal/:id', (req, res) => {
     const target = req.params.id;
+    const jadwal_sql = `SELECT * FROM jadwal_konsultasi k JOIN pasien p ON k.id_pasien=p.id_pasien JOIN dokter d ON k.id_dokter=d.id_dokter WHERE k.id_pasien = ?`;
     
-    res.end('Hai, ini target' + target);
+    db.query(jadwal_sql, [target], (err, results) => {
+        if(err) throw err;
+        res.render("admin-edit.ejs", { data: results[0] });
+    });
+});
+
+app.post('/admin/jadwal/:id', (req, res) => {
+    const formData = req.body;
+    const target = req.params.id;
+
+    const update_sql = `
+        UPDATE jadwal_konsultasi 
+        SET 
+            id_pasien = ?, 
+            id_dokter = ?, 
+            tanggal = ?, 
+            waktu = ?, 
+            keluhan = ?, 
+            status = ?
+        WHERE id_konsultasi = ?
+    `;
+    const update_values = [ formData.id_pasien, formData.id_dokter, formData.tanggal, formData.waktu, formData.keluhan, formData.status, target ];
+
+    db.query(update_sql, update_values, (err, results) => {
+        if (err) throw err;
+        res.redirect('/admin');
+    });
 });
 
 // Delete
 app.get('/admin/jadwal/:id/delete', (req, res) => {
     const target = req.params.id;
+
+    const delete_sql = `DELETE FROM jadwal_konsultasi WHERE id_konsultasi = ?`;
     
-    res.end('Hai, ini target' + target);
+    db.query(delete_sql, [target], (err, results) => {
+        if(err) throw err;
+        res.redirect("/admin");
+    });
 });
 
 // Mark as done (Masuk ke riwayat konsultasi)

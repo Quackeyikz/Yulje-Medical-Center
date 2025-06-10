@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | YULJE</title>
+
+    <%- include("modules/head.ejs") %>
+
+    <style>
+        tr th {
+            padding: 10px 30px;
+        }
+
+        tr td {
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="flex flex-row justify-between items-center">
+        <div class="flex flex-row gap-5 justify-start items-center p-3">
+            <img src="/img/Yulje Icon Logo.png" class="w-15" alt="Yulje Logo">
+            <div class="flex flex-col">
+                <h1 class="text-2xl text-yuldark-500 font-bold">YULJE's Admin Dashboard</h1>
+                <small>Halo Min, jangan lupa rajin Git Pull!</small>
+            </div>
+        </div>
+        <div class="flex flex-row gap-5 justify-end items-center p-3">
+            <div class="text-right">
+                <h1 class="text-2xl text-yuldark-500 font-bold">yulje_pw</h1>
+                <small>YULJE's Database</small>
+            </div>
+            <i class="text-6xl text-blue-950 bi bi-database-fill-gear"></i>
+        </div>
+    </nav>
+
+    <main class="flex flex-row gap-10 justify-between items-start px-5 my-5 flex-wrap lg:flex-nowrap">
+        <section class="mt-10">
+            <h1 class="text-3xl text-center font-bold text-blue-800">Riwayat Konsultasi</h1>
+            <p class="text-center text-sm font-light italic">Tabel: riwayat_konsultasi</p>
+
+            <div class="mt-5 shadow-sm p-3">
+                <table class="table-auto border border-2 border-collapse border-white p-4 w-full text-sm">
+                    <thead class="bg-stone-50">
+                        <tr>
+                            <th>No.</th>
+                            <th>ID Pas</th>
+                            <th>ID Dok</th>
+                            <th>Tanggal</th>
+                            <th>Waktu</th>
+                            <th>Keluhan</th>
+                            <th>Status</th>
+                            <th>Diagnosis</th>
+                            <th>Tindakan</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% results.forEach((row, index) => { %>
+                            <tr>
+                                <td><%= index + 1 %></td>
+                                <td><%= row.id_pasien %></td>
+                                <td><%= row.id_dokter %></td>
+                                <td><%= row.tanggal %></td>
+                                <td><%= row.waktu %></td>
+                                <td><%= row.keluhan %></td>
+                                <td><%= row.status %></td>
+                                <td><%= row.diagnosis %></td>
+                                <td><%= row.tindakan %></td>
+                            </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

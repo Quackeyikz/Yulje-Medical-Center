@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin</title>
+    <title>Admin Dashboard | YULJE</title>
 
     <%- include("modules/head.ejs") %>
 
@@ -35,7 +35,7 @@
         </div>
     </nav>
 
-    <main class="flex flex-row gap-10 justify-between items-start px-5 my-5 flex-wrap">
+    <main class="flex flex-row gap-10 justify-between items-start px-5 my-5 flex-wrap lg:flex-nowrap">
         <section class="grow">
             <h1 class="text-3xl text-center font-bold text-blue-800">Jadwal Konsultasi Aktif</h1>
             <p class="text-center text-sm font-light italic">Tabel: jadwal_konsultasi</p>
@@ -112,6 +112,10 @@
                     </tbody>
                 </table>
             </div>
+
+            <div class="mt-5 text-right">
+                <a href="/admin/riwayat" class="text-blue-500 italic underline underline-offset-1">Riwayat Konsultasi <i class="ms-3 bi bi-chevron-bar-right"></i></a>
+            </div>
         </section>
         
         <section>
@@ -136,7 +140,7 @@
                 <% dokter.forEach(row => { %>
                     <div class="bg-stone-50 border border-1 border-white p-3 rounded-md shadow-sm">
                         <h3 class="font-bold text-yuldark-500"><%= row.nama_dokter %></h3>
-                        <p class="text-sm text-blue-500 mb-3"><%= row.nama_spesialis %></p>
+                        <p class="text-sm text-blue-500 mb-3">Spesialis <%= row.nama_spesialis %></p>
                         <small class="text-green-800 me-4"><i class="bi bi-calendar-event me-2"></i><%= row.hari %></small>
                         <small class="text-stone-500"><i class="bi bi-clock-history me-2"></i><%= row.waktu_mulai %> - <%= row.waktu_selesai %></small>
                     </div>
