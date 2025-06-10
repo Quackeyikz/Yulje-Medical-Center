@@ -35,7 +35,7 @@
         </div>
     </nav>
 
-    <main class="flex flex-row gap-10 justify-between items-start px-5 mt-5">
+    <main class="flex flex-row gap-10 justify-between items-start px-5 my-5 flex-wrap">
         <section class="grow">
             <h1 class="text-3xl text-center font-bold text-blue-800">Jadwal Konsultasi Aktif</h1>
             <p class="text-center text-sm font-light italic">Tabel: jadwal_konsultasi</p>
@@ -81,18 +81,34 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <% results.forEach((row, index) => { %>
                         <tr>
-                            <td class="text-center">1</td>
-                            <td><span class="p-1 rounded-md bg-blue-200">Malcolm Lockyer</span></td>
-                            <td>L-L-L-Lava, C-C-C-Chicken, Steve's Lava Chicken</td>
-                            <td class="text-center">Dr. Hero Brian</td>
-                            <td class="text-center p-2"><span class="bg-yellow-300 p-2 rounded-md font-bold text-yellow-950">Terjadwal</span></td>
+                            <td class="text-center"><%= index + 1 %></td>
+                            <td>
+                                <span class="p-1 rounded-md <%= row.jenis_kelamin === 'Pria' ? 'bg-blue-200' : 'bg-pink-200' %>">
+                                    <%= row.nama_pasien %>
+                                </span>
+                            </td>
+                            <td class="bg-stone-200"><%= row.keluhan %></td>
+                            <td class="text-center"><%= row.nama_dokter %></td>
+                            <td class="text-center p-2">
+                                <% 
+                                    const today = new Date();
+                                    const tanggalDate = new Date(row.tanggal);
+
+                                    const isSelesai = tanggalDate < new Date(today.setHours(0,0,0,0));
+                                    const statusClass = isSelesai ? "text-green-950 bg-green-200" : "text-yellow-950 bg-yellow-300";
+                                    const statusLabel = isSelesai ? "Selesai" : "Terjadwal";
+                                %>
+                                <span class="p-2 rounded-md font-bold <%= statusClass %>"><%= statusLabel %></span>
+                            </td>
                             <td class="flex flex-row flex-wrap gap-2 text-center">
-                                <a href="/dokter/jadwal" class="bg-yellow-500 hover:bg-yellow-700 cursor-pointer p-1 grow text-white rounded-md"><i class="bi bi-pencil-square"></i></a>
-                                <a href="/dokter/jadwal/delete" onclick="return confirm('Yakin ingin menghapus?')" class="bg-red-500 hover:bg-red-700 cursor-pointer p-1 grow text-white rounded-md"><i class="bi bi-trash"></i></a>
-                                <a href="/dokter/jadwal/done" class="bg-green-500 hover:bg-green-700 cursor-pointer p-1 grow text-white rounded-md"><i class="bi bi-check"></i></a>
+                                <a href="/admin/jadwal/<%= row.id_konsultasi %>" class="bg-yellow-500 hover:bg-yellow-700 cursor-pointer p-1 grow text-white rounded-md"><i class="bi bi-pencil-square"></i></a>
+                                <a href="/admin/jadwal/<%= row.id_konsultasi %>/delete" onclick="return confirm('Yakin ingin menghapus?')" class="bg-red-500 hover:bg-red-700 cursor-pointer p-1 grow text-white rounded-md"><i class="bi bi-trash"></i></a>
+                                <a href="/admin/jadwal/<%= row.id_konsultasi %>/done" class="bg-green-500 hover:bg-green-700 cursor-pointer p-1 grow text-white rounded-md"><i class="bi bi-check"></i></a>
                             </td>
                         </tr>
+                        <% }); %>
                     </tbody>
                 </table>
             </div>
@@ -103,12 +119,28 @@
             <p class="text-center text-sm font-light italic">Tabel: dokter, spesialis, jadwal_praktik</p>
 
             <div class="flex flex-col gap-4 mt-5">
-                <div class="bg-stone-50 border border-1 border-white p-3 rounded-md shadow-sm">
-                    <h3 class="font-bold text-yuldark-500">Nama Dokter</h3>
-                    <p class="text-sm text-blue-500 mb-3">Spesialis</p>
-                    <small class="text-green-800 me-4"><i class="bi bi-calendar-event me-2"></i>Hari</small>
-                    <small class="text-stone-500"><i class="bi bi-clock-history me-2"></i>08:00 - 13:000</small>
-                </div>
+                <% 
+                    const dokter = [];
+                    const sudah_ada = new Set();
+                    
+                    // Memfilter duplikat karena query berdasarkan jadwal_konsultasi, bukan dokter standalone   - Erik
+                    results.forEach(row => {
+                        if (!sudah_ada.has(row.id_dokter)) 
+                        {
+                            dokter.push(row);
+                            sudah_ada.add(row.id_dokter);
+                        }
+                    });
+                %>
+
+                <% dokter.forEach(row => { %>
+                    <div class="bg-stone-50 border border-1 border-white p-3 rounded-md shadow-sm">
+                        <h3 class="font-bold text-yuldark-500"><%= row.nama_dokter %></h3>
+                        <p class="text-sm text-blue-500 mb-3"><%= row.nama_spesialis %></p>
+                        <small class="text-green-800 me-4"><i class="bi bi-calendar-event me-2"></i><%= row.hari %></small>
+                        <small class="text-stone-500"><i class="bi bi-clock-history me-2"></i><%= row.waktu_mulai %> - <%= row.waktu_selesai %></small>
+                    </div>
+                <% }); %>
             </div>
         </section>
     </main>

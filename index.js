@@ -158,28 +158,33 @@ app.get('/jadwal/dokter', (req, res) => {
 // Tabel list jadwal dengan CRUD dashboard
 app.get('/admin', (req, res) => {
     // Sort by date?
-    res.render("admin.ejs");
+    const jadwal_konsultasi = `SELECT DISTINCT * FROM jadwal_konsultasi k JOIN pasien p ON k.id_pasien=p.id_pasien JOIN dokter d ON d.id_dokter=k.id_dokter JOIN spesialis s ON d.id_spesialis=s.id_spesialis JOIN jadwal_praktik jp ON d.id_praktik=jp.id_praktik LEFT JOIN transaksi t ON k.id_konsultasi=t.id_konsultasi ORDER BY k.tanggal ASC`;
+
+    db.query(jadwal_konsultasi, (err, results) => {
+        if(err) throw err;
+        res.render("admin.ejs", { results });
+    });
 });
 
 // Update
 app.get('/admin/jadwal/:id', (req, res) => {
     const target = req.params.id;
     
-    res.end();
+    res.end('Hai, ini target' + target);
 });
 
 // Delete
 app.get('/admin/jadwal/:id/delete', (req, res) => {
     const target = req.params.id;
     
-    res.end();
+    res.end('Hai, ini target' + target);
 });
 
 // Mark as done (Masuk ke riwayat konsultasi)
 app.get('/admin/jadwal/:id/done', (req, res) => {
     const target = req.params.id;
 
-    res.end();
+    res.end('Hai, ini target' + target);
 });
 
 app.listen(port, () => {
